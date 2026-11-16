@@ -1,0 +1,95 @@
+/* make.fun frontend — prize ledger. Tokens in ../DESIGN.md. System faces only. */
+:root {
+  color-scheme: light;
+  --ground: #ffffff; --ink: #191713; --muted: #5f5a52; --panel: #f4f4f2;
+  --signal: #c8102e; --line: #e2dfda;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Header */
+.top { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; align-items: baseline; padding: 1rem 1.25rem; border-bottom: 2px solid var(--ink); }
+.brand { font-family: var(--serif); font-weight: 700; font-size: 1.35rem; letter-spacing: -.01em; text-decoration: none; }
+.brand b { color: var(--signal); }
+.brand em { font-family: var(--sans); font-style: normal; font-weight: 400; color: var(--muted); font-size: .85rem; margin-left: .4rem; }
+.top nav { display: flex; gap: 1.25rem; }
+.top nav a { color: var(--ink); text-decoration: none; font-size: .95rem; }
+.top nav a:hover { color: var(--signal); text-decoration: underline; }
+.search { margin-left: auto; display: flex; gap: .5rem; }
+.search input { padding: .5rem .75rem; border: 1px solid var(--ink); border-radius: 2px; background: var(--ground); color: var(--ink); min-width: 15rem; font-size: .92rem; }
+.search button { padding: .5rem 1rem; border: 1px solid var(--ink); border-radius: 2px; background: var(--ink); color: #fff; font-weight: 600; cursor: pointer; }
+
+main { max-width: 1020px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+footer { max-width: 1020px; margin: 0 auto; padding: 1.25rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+footer a { color: var(--muted); }
+
+h1 { font-family: var(--serif); font-size: 2.4rem; line-height: 1.1; letter-spacing: -.01em; margin: .5rem 0 .75rem; font-weight: 700; }
+h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2rem 0 .75rem; }
+.lede { color: var(--muted); margin: 0 0 2rem; max-width: 62ch; font-size: 1.05rem; }
+.meta, .note, .muted { color: var(--muted); }
+.note { font-size: .92rem; max-width: 70ch; }
+.crumbs { margin: .25rem 0 1rem; }
+.crumbs a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+.crumbs a:hover { color: var(--signal); text-decoration: underline; }
+
+/* Buttons */
+.btn { display: inline-block; padding: .6rem 1.2rem; border-radius: 2px; background: var(--signal); color: #fff; text-decoration: none; font-weight: 600; font-size: .95rem; border: 1px solid var(--signal); cursor: pointer; }
+.btn:hover { background: #a50d26; border-color: #a50d26; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: #fff; }
+
+/* Board: a ledger */
+.board { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 2rem 1fr auto; gap: .25rem 1.25rem; align-items: baseline; padding: 1.4rem .25rem; border-bottom: 1px solid var(--line); }
+.row:hover { background: var(--panel); }
+.row-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; margin: 0; line-height: 1.25; }
+.row-title a { text-decoration: none; }
+.row-title a:hover { color: var(--signal); text-decoration: underline; }
+.rank { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--muted); text-align: right; }
+.row-sub { color: var(--muted); font-size: .9rem; margin: .3rem 0 0; }
+.status.open { color: var(--signal); font-weight: 600; }
+.status.closed { color: var(--muted); }
+.money { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.money .reward { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; }
+.money .pot { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; color: var(--signal); }
+.money .sub { display: block; color: var(--muted); font-size: .85rem; margin-top: .25rem; }
+
+/* Bounty: the pot is the headline figure */
+.pot-hero { margin: 1.5rem 0 .5rem; }
+.pot-hero span { display: block; color: var(--muted); font-size: .95rem; }
+.pot-hero strong { font-family: var(--serif); font-size: 3.4rem; line-height: 1; font-weight: 700; color: var(--signal); font-variant-numeric: tabular-nums; }
+.facts { margin: 1.5rem 0; border-top: 1px solid var(--line); }
+.facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.desc { font-size: 1.05rem; line-height: 1.7; color: #2b2723; max-width: 72ch; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .95rem; }
+th { font-size: .85rem; color: var(--muted); text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--ink); }
+td { text-align: left; padding: .65rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: var(--panel); }
+td a { text-decoration: none; }
+td a:hover { color: var(--signal); text-decoration: underline; }
+.avatar { border-radius: 50%; vertical-align: middle; background: var(--panel); }
+.avatar.big { width: 56px; height: 56px; border: 1px solid var(--line); }
+.profile-head { display: flex; align-items: center; gap: 1rem; }
+.profile-head h1 { margin: 0; }
+
+.loading, .empty { color: var(--muted); padding: 3rem 0; }
+.err { background: var(--panel); color: var(--ink); padding: 1rem 1.2rem; border: 1px solid var(--ink); border-radius: 2px; }
+.err a { color: var(--signal); }
+
+@media (max-width: 640px) {
+  h1 { font-size: 1.8rem; }
+  .pot-hero strong { font-size: 2.6rem; }
+  .search { margin-left: 0; width: 100%; }
+  .search input { flex: 1; min-width: 0; }
+  .row { grid-template-columns: 1.6rem 1fr; }
+  .money { grid-column: 2; text-align: left; }
+}

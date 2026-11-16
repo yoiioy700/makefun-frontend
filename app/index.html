@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A fast, light, read-only frontend for make.fun bounties: live board, bounty pages, leaderboards and public profiles.">
+<title>make.fun — Bounty Board</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/">make<b>.fun</b> <em>frontend</em></a>
+  <nav aria-label="Main">
+    <a href="#/">Board</a>
+    <a href="#/u/yoiioy">yoiioy</a>
+    <a href="https://make.fun" rel="noopener">make.fun</a>
+  </nav>
+  <form class="search" id="search-form" role="search">
+    <label class="sr" for="q">Search bounties or a profile</label>
+    <input id="q" name="q" type="search" placeholder="Search bounty slug, or u/handle…" autocomplete="off">
+    <button type="submit">Go</button>
+  </form>
+</header>
+<main id="view" aria-live="polite"></main>
+<footer>
+  <p>Read-only. Data: <a href="https://make.fun/api/competitions">make.fun public API</a>. No sign-in, no tracking, no external scripts, styles or fonts.</p>
+</footer>
+<noscript><p class="err">This frontend needs JavaScript to load live data from make.fun.</p></noscript>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
